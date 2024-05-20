@@ -203,7 +203,8 @@ typedef struct s_fdf
 W,A,S,D,LMB : Move the camera.\n\
 R,F,MMU,MMD : Zoom in and out, centered on the mouse cursor.\n\
 LRB : Rotate the model.\n\
-H,MMB : Restore starting projection.\n"
+H,MMB : Restore starting projection.\n\
+P : Alternate between projections.\n"
 
 /* ----- PROTOTYPES ----- */
 
