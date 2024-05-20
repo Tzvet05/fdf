@@ -199,12 +199,14 @@ typedef struct s_fdf
 # define ERROR_MLX_IMG	"mlx_new_image : failed to create new image"
 
 // User controls string
-# define USER_CONTROLS	"Controls :\n\n\
+# define USER_CONTROLS	"Controls :\n\
+\n\
 W,A,S,D,LMB : Move the camera.\n\
 R,F,MMU,MMD : Zoom in and out, centered on the mouse cursor.\n\
 LRB : Rotate the model.\n\
-H,MMB : Restore starting projection.\n\
-P : Alternate between projections.\n"
+H,MMB : Restore the starting projection.\n\
+P : Alternate between projections.\n\
+ESC : Close the window and exit the program.\n"
 
 /* ----- PROTOTYPES ----- */
 
