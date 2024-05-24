@@ -56,17 +56,27 @@ inline static void	calculate_pos(t_fdf *fdf, float *extremities)
 	fdf->pos.theta_z = START_THETA_Z;
 }
 
-inline static void	init_extremities(float *extremities, t_point point,
-		t_fdf *fdf)
+inline static void	init_extremities(float *extremities, t_fdf *fdf)
 {
 	t_pixel	pixel;
 
-	pixel = point_isometric_projection(-fdf->pos.origin_x, -fdf->pos.origin_y,
-			point.z, fdf->projection);
-	extremities[0] = pixel.x;
-	extremities[1] = pixel.x;
-	extremities[2] = pixel.y;
-	extremities[3] = pixel.y;
+	if (!fdf->map.h || !fdf->map.w)
+	{
+		extremities[0] = 0;
+		extremities[1] = 0;
+		extremities[2] = 0;
+		extremities[3] = 0;
+	}
+	else
+	{
+		pixel = point_isometric_projection(-fdf->pos.origin_x,
+				-fdf->pos.origin_y,
+				((t_point **)(fdf->map.matrix))[0][0].z, fdf->projection);
+		extremities[0] = pixel.x;
+		extremities[1] = pixel.x;
+		extremities[2] = pixel.y;
+		extremities[3] = pixel.y;
+	}
 }
 
 void	init_pos(t_fdf *fdf)
@@ -76,11 +86,9 @@ void	init_pos(t_fdf *fdf)
 	size_t	i;
 	size_t	j;
 
-	if (!fdf->map.w && !fdf->map.h)
-		return ;
 	fdf->pos.origin_x = fdf->map.w / 2;
 	fdf->pos.origin_y = fdf->map.h / 2;
-	init_extremities(extremities, ((t_point **)(fdf->map.matrix))[0][0], fdf);
+	init_extremities(extremities, fdf);
 	i = 0;
 	while (i < fdf->map.h)
 	{

@@ -51,15 +51,26 @@ inline static void	calculate_pos(t_position *pos, float *extremities)
 	pos->y = (HEIGHT / 2.f) - (ver_len / 2.f + (extremities[3] * scale));
 }
 
-inline static void	init_extremities(float *extremities, t_point point)
+inline static void	init_extremities(float *extremities, t_matrix map)
 {
 	t_pixel	pixel;
 
-	pixel = point_isometric_projection(point.x, point.y, point.z);
-	extremities[0] = pixel.x;
-	extremities[1] = pixel.x;
-	extremities[2] = pixel.y;
-	extremities[3] = pixel.y;
+	if (!map.h || !map.w)
+	{
+		extremities[0] = 0;
+		extremities[1] = 0;
+		extremities[2] = 0;
+		extremities[3] = 0;
+	}
+	else
+	{
+		pixel = point_isometric_projection(0, 0,
+				((t_point **)(map.matrix))[0][0].z);
+		extremities[0] = pixel.x;
+		extremities[1] = pixel.x;
+		extremities[2] = pixel.y;
+		extremities[3] = pixel.y;
+	}
 }
 
 void	init_pos(t_position *pos, t_matrix map)
@@ -69,9 +80,7 @@ void	init_pos(t_position *pos, t_matrix map)
 	size_t	i;
 	size_t	j;
 
-	if (!map.w && !map.h)
-		return ;
-	init_extremities(extremities, ((t_point **)map.matrix)[0][0]);
+	init_extremities(extremities, map);
 	i = 0;
 	while (i < map.h)
 	{

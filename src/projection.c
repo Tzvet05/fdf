@@ -41,6 +41,8 @@ void	display(t_mlx mlx, t_matrix map, t_position pos)
 	size_t	i;
 	size_t	j;
 
+	if (!map.h || !map.w)
+		return ;
 	i = 0;
 	while (i < map.h)
 	{

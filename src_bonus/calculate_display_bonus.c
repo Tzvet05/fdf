@@ -114,8 +114,10 @@ void	projection(t_fdf *fdf)
 	t_pixel	**pixels;
 	t_point	**points;
 
-	pixels = (t_pixel **)(fdf->dis.matrix);
+	if (!fdf->map.h || !fdf->map.w)
+		return ;
 	points = (t_point **)(fdf->map.matrix);
+	pixels = (t_pixel **)(fdf->dis.matrix);
 	start_dir = get_start_dir(fdf->pos);
 	i = 0;
 	while (i < fdf->map.h)
